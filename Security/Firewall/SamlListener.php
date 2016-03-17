@@ -47,6 +47,11 @@ class SamlListener extends AbstractAuthenticationListener
             $username = $this->oneLoginAuth->getNameId();
         }
         $token->setUser($username);
+        
+        // Store the NameID and SessionIndex as attributes of the token
+        // These values will be needed for logout
+        $token->setAttribute('samlNameId', $this->oneLoginAuth->getNameId());
+        $token->setAttribute('samlSessionIndex', $this->oneLoginAuth->getSessionIndex());
 
         return $this->authenticationManager->authenticate($token);
     }

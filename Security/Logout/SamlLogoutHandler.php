@@ -35,7 +35,24 @@ class SamlLogoutHandler implements LogoutHandlerInterface
         try {
             $this->samlAuth->processSLO();
         } catch (\OneLogin_Saml2_Error $e) {
-            $this->samlAuth->logout();
+            // Prepare the parameters for the SAML logout call
+            $parameters = array();
+
+            // The NameId and SessionIndex were obtained during sign on.
+            // Both values should exist as attributes of the current token
+            try {
+                $nameId = $token->getAttribute('samlNameId');
+            } catch (\InvalidArgumentException $e) {
+                $nameId = null;
+            }
+
+            try {
+                $sessionIndex = $token->getAttribute('samlSessionIndex');
+            } catch (\InvalidArgumentException $e) {
+                $sessionIndex = null;
+            }
+
+            $this->samlAuth->logout(null, $parameters, $nameId, $sessionIndex, false);
         }
     }
 }
