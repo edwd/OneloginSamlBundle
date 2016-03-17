@@ -1,3 +1,15 @@
+# Fork
+This is a fork of https://github.com/hslavich/OneloginSamlBundle
+
+Purpose of this fork
+------------
+
+This fork adds the `wantXMLValidation` and `signatureAlgorithm` parameters (child items of `security`) to the configuration template.
+
+These options are part of the OneLogin SAML Toolkit, but did not exist in this bundle at the time of the fork.
+
+The original README follows below.
+
 # OneloginSamlBundle
 OneLogin SAML Bundle for Symfony2. (https://github.com/onelogin/php-saml)
 
